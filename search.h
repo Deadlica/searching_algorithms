@@ -5,6 +5,9 @@
 #ifndef SEARCH_H
 #define SEARCH_H
 
+#include <memory>
+#include "tree.h"
+
 template<typename it, typename T>
 it linear_search(it first, it last, T element) {
     for(;first != last; first++) {
@@ -59,11 +62,11 @@ T interp_search(it first, it last, T element) {
     return last; //Element wasn't found
 }
 
-template<typename it, typename T>
-bool tree_binary_search(it &root, T element) {
+template<typename T>
+tree::node<T>* tree_binary_search(std::unique_ptr<tree::node<T>> &root, T element) {
     if(root != nullptr) {
         if(root->data == element) { //Element found
-            return true;
+            return root.get();
         }
         else if(root->data > element) { //Search to the left
             return tree_binary_search(root->left, element);
@@ -72,7 +75,7 @@ bool tree_binary_search(it &root, T element) {
             return tree_binary_search(root->right, element);
         }
     }
-    return false; //Returns null if the element isn't found
+    return nullptr; //Returns null if the element isn't found
 }
 
 #endif

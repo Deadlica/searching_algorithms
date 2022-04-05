@@ -3,4 +3,4 @@ project(searching_algorithms)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(searching_algorithms main.cpp tree.cpp prime.cpp)
+add_executable(searching_algorithms main.cpp prime.cpp)

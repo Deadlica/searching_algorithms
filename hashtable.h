@@ -5,12 +5,45 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-template<typename T>
-struct node {
-    T data;
-    node<T>* next;
-};
+#include <iostream>
+#include <forward_list>
 
-std::vector<std::unique_ptr<node<int>>> hashtable;
+template<typename T>
+class hashtable {
+public:
+    hashtable(): m_hashtable(tableSize) {}
+
+    template<typename it>
+    hashtable(it first, it last): m_hashtable(last - first) {
+        for(it current = first; current != last; current++) {
+            add(*current);
+        }
+    }
+
+    void add(T value) {
+        auto index = hash(value);
+        m_hashtable[index].push_front(value);
+    }
+
+    T* get(T value) {
+        auto index = hash(value);
+        auto it = m_hashtable[index].begin(), end = m_hashtable[index].end();
+        for(;it != end; it++) {
+            if(*it == value) {
+                T* found = &value;
+                return found;
+            }
+        }
+        return nullptr;
+    }
+
+private:
+    std::vector<std::forward_list<T>> m_hashtable;
+    static constexpr size_t tableSize = 10000;
+
+    const size_t hash(T value) const {
+        return value % m_hashtable.size();
+    }
+};
 
 #endif
