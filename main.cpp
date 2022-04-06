@@ -6,15 +6,14 @@
 #include "measurement.h"
 
 int main() {
-    Prime buffer(20000);
-    buffer.print();
-    std::cout << buffer.size() << std::endl;
+    std::srand((unsigned) std::time(0));
+    measurement benchmark(50, 20000);
 
-    tree::Tree<int> BST;
-    BST.generateData(buffer.begin(), buffer.end());
-
-    hashtable<int> table(buffer.begin(), buffer.end());
-    measurement lol(10, 20000);
+    benchmark(LINEAR_SEARCH, "Linear search.csv");
+    benchmark(BINARY_SEARCH, "Binary search.csv");
+    //benchmark(INTERPOLATION_SEARCH);
+    benchmark(BINARY_TREE_SEARCH, "Binary tree search.csv");
+    benchmark(HASH_SEARCH, "Hashtable search.csv");
 
     return 0;
 }

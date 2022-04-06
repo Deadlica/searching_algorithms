@@ -44,6 +44,10 @@ namespace tree {
             }
         }
 
+        void reset() {
+            auto temp = std::move(root);
+        }
+
         std::unique_ptr<node<T>> root;
     private:
 

@@ -18,31 +18,33 @@ it linear_search(it first, it last, T element) {
     return last; //Returns last if element isn't found
 }
 
-template<typename it, typename T>
-it binary_search(it first, it last, T element) {
-    if(first < last) { //Range isn't empty
-        it result;
-        it middle = first + (last - first) / 2; //Get pointer to middle
+namespace alg {
 
-        if (*middle == element) { //Element found
-            return middle;
-        }
-        else if (*middle > element) { //Search to the left
-            result = binary_search(first, middle - 1, element);
-        }
-        else { //Search to the right
-            result = binary_search(middle + 1, last, element);
+    template<typename it, typename T>
+    it binary_search(it first, it last, T element) {
+        if (first < last) { //Range isn't empty
+            it result;
+            it middle = first + (last - first) / 2; //Get pointer to middle
 
+            if (*middle == element) { //Element found
+                return middle;
+            } else if (*middle > element) { //Search to the left
+                result = alg::binary_search(first, middle - 1, element);
+            } else { //Search to the right
+                result = alg::binary_search(middle + 1, last, element);
+
+            }
+            if (*result == element) //Element found somewhere to the left/right of middle
+                return result;
         }
-        if(*result == element) //Element found somewhere to the left/right of middle
-            return result;
+        return last; //Element wasn't found
     }
-    return last; //Element wasn't found
+
 }
 
 template<typename it, typename T>
-T interp_search(it first, it last, T element) {
-    if(first < last) { //Range isn't empty
+it interp_search(it first, it last, T element) {
+    if(first != last) { //Range isn't empty
         it result;
         it pos = first + (double((last - first) / (*last - *first))) * (element - *first); //Calculates the new "middle" position
 
@@ -50,10 +52,10 @@ T interp_search(it first, it last, T element) {
             return pos;
         }
         else if (*pos > element) { //Search for the element to the left of pos
-            result = binary_search(first, pos - 1, element);
+            result = interp_search(first, pos - 1, element);
         }
         else { //Search for the element to the right of pos
-            result = binary_search(pos + 1, last, element);
+            result = interp_search(pos + 1, last, element);
 
         }
         if(*result == element) //The element was found somewhere to the left or right of the middle

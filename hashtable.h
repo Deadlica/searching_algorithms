@@ -11,10 +11,18 @@
 template<typename T>
 class hashtable {
 public:
-    hashtable(): m_hashtable(tableSize) {}
+    hashtable() = default;
 
     template<typename it>
     hashtable(it first, it last): m_hashtable(last - first) {
+        for(it current = first; current != last; current++) {
+            add(*current);
+        }
+    }
+
+    template<typename it>
+    void generateNumbers(it first, it last) {
+        m_hashtable.resize(last - first);
         for(it current = first; current != last; current++) {
             add(*current);
         }
@@ -39,7 +47,6 @@ public:
 
 private:
     std::vector<std::forward_list<T>> m_hashtable;
-    static constexpr size_t tableSize = 10000;
 
     const size_t hash(T value) const {
         return value % m_hashtable.size();

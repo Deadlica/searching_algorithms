@@ -2,9 +2,6 @@
 // Created by samuel on 4/5/22.
 //
 
-#include <numeric>
-#include <complex>
-#include <algorithm>
 #include "measurement.h"
 
 measurement::measurement(size_t N, size_t startSize): samples(N), sizes(0), list(0) {
@@ -13,49 +10,68 @@ measurement::measurement(size_t N, size_t startSize): samples(N), sizes(0), list
     }
 }
 
-void measurement::operator()(algorithm algorithm) {
+void measurement::operator()(algorithm algorithm, std::string filename) {
+    this->filename = filename;
     for(auto e: sizes) {
         currentSize = e;
         for(int i = 0; i < samples; i++) {
-
+            generate(algorithm);
             measurement::search(algorithm);
         }
         m_std_dev = std_dev();
+        exportToFile();
     }
+    std::cout << filename << " DONE!" << std::endl;
 }
 
 void measurement::search(algorithm algorithm) {
+    size_t randomIndex = std::rand() % list.size();
+    int element = list[randomIndex];
+    std::vector<int>::iterator it;
+    tree::node<int>* tree_it;
+    int* hash_it;
     switch(algorithm) {
         case LINEAR_SEARCH:
+            timer.start();
+            it = linear_search(list.begin(), list.end(), element);
+            timer.stop();
             break;
         case BINARY_SEARCH:
+            timer.start();
+            it = alg::binary_search(list.begin(), list.end(), element);
+            timer.stop();
             break;
         case INTERPOLATION_SEARCH:
+            timer.start();
+            it = interp_search(list.begin(), list.end(), element);
+            timer.stop();
             break;
         case BINARY_TREE_SEARCH:
+            timer.start();
+            tree_it = tree_binary_search(tree.root, element);
+            timer.stop();
             break;
         case HASH_SEARCH:
+            timer.start();
+            hash_it = table.get(element);
+            timer.stop();
             break;
     }
+    it++;
+    hash_it++;
+    tree_it++;
+    timeMeasurements.push_back(timer.time());
 }
 
 void measurement::generate(algorithm algorithm) {
+    list.resize(currentSize);
     switch(algorithm) {
-        case LINEAR_SEARCH:
-            list.resize(currentSize);
-            break;
-        case BINARY_SEARCH:
-            list.resize(currentSize);
-            break;
-        case INTERPOLATION_SEARCH:
-            list.resize(currentSize);
-            break;
         case BINARY_TREE_SEARCH:
-            list.resize(algorithm);
+            tree.reset();
             tree.generateData(list.begin(), list.end());
             break;
         case HASH_SEARCH:
-
+            table.generateNumbers(list.begin(), list.end());
             break;
     }
 }
@@ -70,4 +86,12 @@ double measurement::std_dev() {
     double squareSum = std::accumulate(timeMeasurements.begin(), timeMeasurements.end(), 0.0);
 
     return (std::sqrt((1.0 / (N - 1.0)) * squareSum) / samples);
+}
+
+void measurement::exportToFile() {
+    std::ofstream file(filename, std::ios_base::app);
+    if(file.is_open()) {
+        file << currentSize << "\t" << mean << "\t" << m_std_dev << "\t" << samples << std::endl;
+        file.close();
+    }
 }

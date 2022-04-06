@@ -10,6 +10,10 @@
 #include "search.h"
 #include "tree.h"
 #include "hashtable.h"
+#include <numeric>
+#include <complex>
+#include <algorithm>
+#include <fstream>
 
 enum algorithm {LINEAR_SEARCH, BINARY_SEARCH, INTERPOLATION_SEARCH, BINARY_TREE_SEARCH, HASH_SEARCH};
 
@@ -17,7 +21,7 @@ class measurement {
 public:
     measurement(size_t N, size_t startSize);
 
-    void operator()(algorithm algorithm);
+    void operator()(algorithm algorithm, std::string filename);
 
     void search(algorithm algorithm);
 
@@ -25,10 +29,13 @@ public:
 
     double std_dev();
 
+    void exportToFile();
+
 private:
     Timer timer;
-    size_t samples;
-    double m_std_dev, mean, currentSize;
+    size_t samples, currentSize;
+    std::string filename;
+    double m_std_dev, mean;
     std::vector<double> timeMeasurements;
     std::vector<size_t> sizes;
     Prime list;
