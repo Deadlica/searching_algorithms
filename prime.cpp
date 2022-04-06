@@ -4,7 +4,7 @@
 
 #include "prime.h"
 
-Prime::Prime(size_t limit): isPrime(limit, true), limit(limit) {
+Prime::Prime(size_t size): isPrime(limit, true), m_size(size) {
     SieveOfErastosthenes();
 }
 
@@ -12,11 +12,10 @@ int &Prime::operator[](size_t index) {
     return primeNumbers[index];
 }
 
-void Prime::resize(size_t limit) {
-    this->limit = limit;
+void Prime::resize(size_t size) {
+    m_size = size;
     primeNumbers.clear();
-    isPrime = std::vector<bool>(this->limit, true);
-    SieveOfErastosthenes();
+    fill();
 }
 
 size_t Prime::size() const {
@@ -26,7 +25,6 @@ size_t Prime::size() const {
 void Prime::clear() {
     primeNumbers.clear();
     isPrime.clear();
-    limit = 0;
 }
 
 void Prime::print() const {
@@ -70,7 +68,11 @@ void Prime::SieveOfErastosthenes() {
             i++;
         }
     }
-    for(i = 0; i < isPrime.size(); i++) {
+    fill();
+}
+
+void Prime::fill() {
+    for(int i = 0; primeNumbers.size() < m_size; i++) {
         if(isPrime[i]) {
             primeNumbers.push_back(i);
         }

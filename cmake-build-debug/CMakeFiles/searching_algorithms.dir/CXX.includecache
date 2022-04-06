@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/samuel/Documents/c++/DT064G/searching_algorithms/measurement.cpp
+measurement.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/measurement.h
+
+/home/samuel/Documents/c++/DT064G/searching_algorithms/measurement.h
+timer.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/timer.h
+prime.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/prime.h
+
+/home/samuel/Documents/c++/DT064G/searching_algorithms/prime.h
+vector
+-
+iostream
+-
+
+/home/samuel/Documents/c++/DT064G/searching_algorithms/timer.h
+chrono
+-
+
