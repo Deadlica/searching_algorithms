@@ -14,8 +14,8 @@ void measurement::operator()(algorithm algorithm, std::string filename) {
     this->filename = filename;
     for(auto e: sizes) {
         currentSize = e;
+        generate(algorithm);
         for(int i = 0; i < samples; i++) {
-            generate(algorithm);
             measurement::search(algorithm);
         }
         m_std_dev = std_dev();
