@@ -6,7 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/samuel/Documents/c++/DT064G/searching_algorithms/measurement.cpp
+/home/samuel/Documents/c++/DT064G/searching_algorithms/hashtable.h
+iostream
+-
+forward_list
+-
+
+/home/samuel/Documents/c++/DT064G/searching_algorithms/main.cpp
+iostream
+-
+search.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/search.h
+tree.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/tree.h
+prime.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/prime.h
+hashtable.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/hashtable.h
 measurement.h
 /home/samuel/Documents/c++/DT064G/searching_algorithms/measurement.h
 
@@ -22,7 +38,19 @@ vector
 iostream
 -
 
+/home/samuel/Documents/c++/DT064G/searching_algorithms/search.h
+memory
+-
+tree.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/tree.h
+
 /home/samuel/Documents/c++/DT064G/searching_algorithms/timer.h
 chrono
 -
+
+/home/samuel/Documents/c++/DT064G/searching_algorithms/tree.h
+memory
+-
+prime.h
+/home/samuel/Documents/c++/DT064G/searching_algorithms/prime.h
 
