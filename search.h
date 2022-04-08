@@ -46,13 +46,13 @@ template<typename it, typename T>
 it interp_search(it first, it last, T element) {
     if(first != last) { //Range isn't empty
         it result;
-        it pos = first + (double((last - first) / (*last - *first))) * (element - *first); //Calculates the new "middle" position
+        it pos = first + (double((last - first) / (*(last - 1) - *first))) * (element - *first); //Calculates the new "middle" position
 
         if (*pos == element) { //Element found
             return pos;
         }
         else if (*pos > element) { //Search for the element to the left of pos
-            result = interp_search(first, pos - 1, element);
+            result = interp_search(first, pos, element);
         }
         else { //Search for the element to the right of pos
             result = interp_search(pos + 1, last, element);
