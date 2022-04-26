@@ -46,10 +46,7 @@ namespace tree {
 
         void inverse(std::unique_ptr<node<T>> &node) {
             if(node != nullptr) {
-                auto left = std::move(node->left);
-                auto right = std::move(node->right);
-                node->left = std::move(right);
-                node->right = std::move(left);
+                std::swap(node->left, node->right);
                 inverse(node->left);
                 inverse(node->right);
             }
