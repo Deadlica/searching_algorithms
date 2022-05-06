@@ -63,6 +63,7 @@ void measurement::search(algorithm algorithm) {
         }
         total_time += timer.time();
     }
+
     it++;
     hash_it++;
     tree_it++;
