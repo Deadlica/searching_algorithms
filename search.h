@@ -6,6 +6,7 @@
 #define SEARCH_H
 
 #include <memory>
+#include <cassert>
 #include "tree.h"
 
 template<typename it, typename T>
@@ -47,6 +48,7 @@ it interp_search(it first, it last, T element) {
     if(first != last) { //Range isn't empty
         it result;
         it pos = first + (double((last - first) / (*(last - 1) - *first))) * (element - *first); //Calculates the new "middle" position
+
 
         if (*pos == element) { //Element found
             return pos;

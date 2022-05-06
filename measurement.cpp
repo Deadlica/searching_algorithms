@@ -20,6 +20,7 @@ void measurement::operator()(algorithm algorithm, std::string filename) {
         }
         m_std_dev = std_dev();
         exportToFile();
+        timeMeasurements.clear();
     }
     std::cout << filename << " DONE!" << std::endl;
 }
@@ -31,7 +32,7 @@ void measurement::search(algorithm algorithm) {
     tree::node<int>* tree_it;
     int* hash_it;
     double total_time = 0;
-    int loops = 10000;
+    int loops = 100;
     for(int i = 0; i < loops; i++) {
         switch(algorithm) {
             case LINEAR_SEARCH:
@@ -82,15 +83,17 @@ void measurement::generate(algorithm algorithm) {
 }
 
 double measurement::std_dev() {
-    const int N = samples;
     double sum = std::accumulate(timeMeasurements.begin(), timeMeasurements.end(), 0.0);
-    mean = sum / N;
+    double n = timeMeasurements.size();
+    mean = sum / n;
 
-    auto devSum = [this](double measurement) {return std::pow(measurement - mean, 2);};
-    std::transform(timeMeasurements.begin(), timeMeasurements.end(), timeMeasurements.begin(), devSum);
-    double squareSum = std::accumulate(timeMeasurements.begin(), timeMeasurements.end(), 0.0);
+    double dev_sum = 0;
+    for(int i = 0; i < n; i++) {
+        dev_sum += (timeMeasurements[i] - mean) * (timeMeasurements[i] - mean);
+    }
+    std::cout << 1 / (n-1) << std::endl;
 
-    return std::sqrt(((1.0 / (N - 1.0)) * squareSum) / samples);
+    return std::sqrt(((1 / (n - 1)) * dev_sum) / n);
 }
 
 void measurement::exportToFile() {
