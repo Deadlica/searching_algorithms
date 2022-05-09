@@ -3,3 +3,6 @@ program: main.cpp measurement.cpp prime.cpp timer.cpp
 
 run: program
 	./main
+
+plot:
+	python3 plotter.py

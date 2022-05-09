@@ -45,6 +45,7 @@ namespace alg {
 
 template<typename it, typename T>
 it interp_search(it first, it last, T element) {
+    /*
     if(first != last) { //Range isn't empty
         it result;
         it pos = first + (double((last - first) / (*(last - 1) - *first))) * (element - *first); //Calculates the new "middle" position
@@ -64,6 +65,24 @@ it interp_search(it first, it last, T element) {
             return result;
     }
     return last; //Element wasn't found
+     */
+    auto original_last = last;
+    int low = 0, high = last - first - 1, mid;
+
+    while (low <= high) {
+        mid = low + (((element - (*first)) * (high - low)) / (*(first + high) - (*first)));
+
+        if (element == *(first + mid)) return first + mid;
+        if (element > *(first + mid)) {
+            low = mid + 1;
+            first += low;
+        }
+        else {
+            high = mid - 1;
+            last = first + high;
+        }
+    }
+    return original_last;
 }
 
 template<typename T>

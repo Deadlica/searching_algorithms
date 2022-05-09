@@ -38,32 +38,21 @@ double measurement::search(algorithm algorithm) {
     for(int i = 0; i < loops; i++) {
         switch(algorithm) {
             case LINEAR_SEARCH:
-                //timer.start();
                 it = linear_search(list.begin(), list.end(), element);
-                //timer.stop();
                 break;
             case BINARY_SEARCH:
-                //timer.start();
                 it = alg::binary_search(list.begin(), list.end(), element);
-                //timer.stop();
                 break;
             case INTERPOLATION_SEARCH:
-                //timer.start();
                 it = interp_search(list.begin(), list.end(), element);
-                //timer.stop();
                 break;
             case BINARY_TREE_SEARCH:
-                //timer.start();
                 tree_it = tree_binary_search(tree.root, element);
-                //timer.stop();
                 break;
             case HASH_SEARCH:
-                //timer.start();
                 hash_it = table.get(element);
-                //timer.stop();
                 break;
         }
-        //total_time += timer.time();
     }
     timer.stop();
     if(it == list.begin()) {
