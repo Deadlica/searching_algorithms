@@ -23,7 +23,7 @@ public:
 
     void operator()(algorithm algorithm, std::string filename);
 
-    void search(algorithm algorithm);
+    double search(algorithm algorithm);
 
     void generate(algorithm algorithm);
 

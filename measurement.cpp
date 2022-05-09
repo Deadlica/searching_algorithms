@@ -13,61 +13,70 @@ measurement::measurement(size_t N, size_t startSize): samples(N), sizes(0), list
 void measurement::operator()(algorithm algorithm, std::string filename) {
     this->filename = filename;
     for(auto e: sizes) {
+        timeMeasurements.clear();
         currentSize = e;
         generate(algorithm);
         for(int i = 0; i < samples; i++) {
-            measurement::search(algorithm);
+            double search_time = search(algorithm);
+            timeMeasurements.push_back(search_time);
         }
         m_std_dev = std_dev();
         exportToFile();
-        timeMeasurements.clear();
     }
     std::cout << filename << " DONE!" << std::endl;
 }
 
-void measurement::search(algorithm algorithm) {
+double measurement::search(algorithm algorithm) {
     int max_element = list[list.size() - 1];
     int element = rand() % ++max_element;
     std::vector<int>::iterator it;
     tree::node<int>* tree_it;
     int* hash_it;
     double total_time = 0;
-    int loops = 100;
+    int loops = 10000;
+    timer.start();
     for(int i = 0; i < loops; i++) {
         switch(algorithm) {
             case LINEAR_SEARCH:
-                timer.start();
+                //timer.start();
                 it = linear_search(list.begin(), list.end(), element);
-                timer.stop();
+                //timer.stop();
                 break;
             case BINARY_SEARCH:
-                timer.start();
+                //timer.start();
                 it = alg::binary_search(list.begin(), list.end(), element);
-                timer.stop();
+                //timer.stop();
                 break;
             case INTERPOLATION_SEARCH:
-                timer.start();
+                //timer.start();
                 it = interp_search(list.begin(), list.end(), element);
-                timer.stop();
+                //timer.stop();
                 break;
             case BINARY_TREE_SEARCH:
-                timer.start();
+                //timer.start();
                 tree_it = tree_binary_search(tree.root, element);
-                timer.stop();
+                //timer.stop();
                 break;
             case HASH_SEARCH:
-                timer.start();
+                //timer.start();
                 hash_it = table.get(element);
-                timer.stop();
+                //timer.stop();
                 break;
         }
-        total_time += timer.time();
+        //total_time += timer.time();
     }
-
-    it++;
-    hash_it++;
-    tree_it++;
-    timeMeasurements.push_back(total_time / loops);
+    timer.stop();
+    if(it == list.begin()) {
+        if (std::isdigit(*it)) {std::cout << "";}
+    }
+    if(hash_it != nullptr) {
+        if (std::isdigit(*hash_it)) {std::cout << "";}
+    }
+    if(tree_it != nullptr) {
+       std::cout << "";
+    }
+    total_time = timer.time();
+    return total_time / loops;
 }
 
 void measurement::generate(algorithm algorithm) {
@@ -92,8 +101,6 @@ double measurement::std_dev() {
     for(int i = 0; i < n; i++) {
         dev_sum += (timeMeasurements[i] - mean) * (timeMeasurements[i] - mean);
     }
-    std::cout << 1 / (n-1) << std::endl;
-
     return std::sqrt(((1 / (n - 1)) * dev_sum) / n);
 }
 
