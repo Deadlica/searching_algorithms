@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <cassert>
+#include <iterator>
 #include "tree.h"
 
 template<typename it, typename T>
@@ -45,10 +46,14 @@ namespace alg {
 
 template<typename it, typename T>
 it interp_search(it first, it last, T element) {
-    /*
-    if(first != last) { //Range isn't empty
+    if(first < last) { //Range isn't empty
         it result;
-        it pos = first + (double((last - first) / (*(last - 1) - *first))) * (element - *first); //Calculates the new "middle" position
+        double d_y = *(last - 1) - *first;
+        double k = std::distance(first, last - 1) / d_y;
+        double d_element = element - (*first);
+        //it pos = first + k * d_element;
+        //it pos = first + (std::distance(first, last-1) / (*(last - 1) - *first)) * (element - *first); //Calculates the new "middle" position
+        it pos = first + std::distance(first, last - 1) * (element - *(first))/ (*(last - 1) - *(first));
 
 
         if (*pos == element) { //Element found
@@ -65,24 +70,6 @@ it interp_search(it first, it last, T element) {
             return result;
     }
     return last; //Element wasn't found
-     */
-    auto original_last = last;
-    int low = 0, high = last - first - 1, mid;
-
-    while (low <= high) {
-        mid = low + (((element - (*first)) * (high - low)) / (*(first + high) - (*first)));
-
-        if (element == *(first + mid)) return first + mid;
-        if (element > *(first + mid)) {
-            low = mid + 1;
-            first += low;
-        }
-        else {
-            high = mid - 1;
-            last = first + high;
-        }
-    }
-    return original_last;
 }
 
 template<typename T>

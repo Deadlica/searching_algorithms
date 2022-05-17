@@ -12,6 +12,8 @@ def get_measurements(filename):
     x_max, y_max = 0, 0
     file = open(filename)
     row = file.readline()
+    #x_values.append(0)
+    #y_values.append(0)
     while(row != ""):
         row = row.split()
         x_values.append(float(row[0]))
@@ -51,9 +53,9 @@ def plot(x, y):
    axis[x, y].set_title(filename.split(".")[0])
    axis[x, y].plot(x_values, y2_values, label=tm_cmplx)
    axis[x, y].errorbar(x_values, y_values, yerr=std_dev, fmt="o", label=filename.split(".")[0])
-   plt.ylabel("t [s]")
-   plt.xlabel("N elements")
-   plt.legend(loc="best")
+   axis[x, y].set_ylabel("t [s]")
+   axis[x, y].set_xlabel("N elements")
+   axis[x, y].legend(loc="best")
 
 
 
@@ -70,7 +72,9 @@ for filename in filenames:
         
     elif(filename == "Hashtable search.csv"):
         plot(1, 1)
+        axis[1, 1].set_ylim(0, 0.0000001)
 
     x_values, y_values, y2_values, std_dev = [], [], [], []
+
 
 plt.show()

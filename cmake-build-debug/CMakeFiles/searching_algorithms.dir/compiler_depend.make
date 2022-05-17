@@ -204,6 +204,8 @@ CMakeFiles/searching_algorithms.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11.2.0/backward/auto_ptr.h \
   /usr/include/c++/11.2.0/cassert \
   /usr/include/assert.h \
+  /usr/include/c++/11.2.0/iterator \
+  /usr/include/c++/11.2.0/bits/stream_iterator.h \
   ../tree.h \
   ../prime.h \
   /usr/include/c++/11.2.0/vector \
@@ -463,6 +465,8 @@ CMakeFiles/searching_algorithms.dir/measurement.cpp.o: ../measurement.cpp \
   /usr/include/c++/11.2.0/backward/auto_ptr.h \
   /usr/include/c++/11.2.0/cassert \
   /usr/include/assert.h \
+  /usr/include/c++/11.2.0/iterator \
+  /usr/include/c++/11.2.0/bits/stream_iterator.h \
   ../tree.h \
   ../hashtable.h \
   /usr/include/c++/11.2.0/forward_list \
@@ -783,6 +787,10 @@ CMakeFiles/searching_algorithms.dir/timer.cpp.o: ../timer.cpp \
 /usr/include/c++/11.2.0/bits/stl_bvector.h:
 
 /usr/include/c++/11.2.0/bits/stl_vector.h:
+
+/usr/include/c++/11.2.0/bits/stream_iterator.h:
+
+/usr/include/c++/11.2.0/iterator:
 
 ../measurement.h:
 

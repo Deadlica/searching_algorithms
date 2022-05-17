@@ -148,6 +148,8 @@ CMakeFiles/searching_algorithms.dir/main.cpp.o: \
  /usr/include/c++/11.2.0/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11.2.0/backward/auto_ptr.h \
  /usr/include/c++/11.2.0/cassert /usr/include/assert.h \
+ /usr/include/c++/11.2.0/iterator \
+ /usr/include/c++/11.2.0/bits/stream_iterator.h \
  /home/samuel/Documents/c++/DT064G/searching_algorithms/tree.h \
  /home/samuel/Documents/c++/DT064G/searching_algorithms/prime.h \
  /usr/include/c++/11.2.0/vector /usr/include/c++/11.2.0/bits/stl_vector.h \
